@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>När använder vi vad? — OneDrive, Teams och SharePoint — Helsingborgs stad</title>
+  <link rel="stylesheet" href="assets/helsingborg-stad-design.css" />
+  <style>
+    body {
+      background: var(--color-bg-subtle);
+    }
+
+    .page-header {
+      background: var(--color-primary);
+      color: var(--color-vit);
+      padding: var(--space-7) 0 var(--space-6);
+      border-bottom: var(--space-2) solid var(--color-secondary);
+    }
+
+    .page-header h1,
+    .page-header h2,
+    .page-header h3 {
+      color: var(--color-vit);
+    }
+
+    .lede {
+      color: var(--color-vit);
+      max-width: 70ch;
+      font-size: var(--fs-lg);
+      opacity: 0.95;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+      font-family: var(--font-ui);
+      font-size: var(--fs-sm);
+    }
+
+    .meta-row .badge {
+      background: var(--color-secondary);
+      color: var(--color-vit);
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--color-vit);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-3) 0;
+    }
+
+    .toolbar .container {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .toolbar a {
+      font-family: var(--font-ui);
+      font-size: var(--fs-sm);
+      text-decoration: none;
+    }
+
+    .toolbar .spacer {
+      flex: 1;
+    }
+
+    main {
+      padding: var(--space-7) 0;
+    }
+
+    section + section {
+      margin-top: var(--space-7);
+    }
+
+    .kicker {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      color: var(--color-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    h1, h2, h3, h4 {
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+    }
+
+    .section-intro {
+      max-width: 78ch;
+    }
+
+    .panel {
+      background: var(--color-vit);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-5);
+    }
+
+    .panel + .panel {
+      margin-top: var(--space-4);
+    }
+
+    .grid {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    /* Three top tool cards */
+    .tool-card {
+      background: var(--color-vit);
+      border: 1px solid var(--color-border);
+      border-top: var(--space-2) solid var(--color-primary);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tool-card--onedrive { border-top-color: var(--color-success); }
+    .tool-card--teams    { border-top-color: var(--color-primary); }
+    .tool-card--sharepoint { border-top-color: var(--color-secondary); }
+
+    .tool-card h3 {
+      margin-top: 0;
+      color: var(--color-text);
+    }
+
+    .tool-card .tag {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: var(--fs-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      padding: 2px var(--space-3);
+      border-radius: 999px;
+      margin-bottom: var(--space-3);
+      font-weight: 700;
+    }
+
+    .tool-card--onedrive .tag {
+      background: var(--color-success);
+      color: var(--color-vit);
+    }
+
+    .tool-card--teams .tag {
+      background: var(--color-primary);
+      color: var(--color-vit);
+    }
+
+    .tool-card--sharepoint .tag {
+      background: var(--color-secondary);
+      color: var(--color-vit);
+    }
+
+    .tool-card ul {
+      padding-left: var(--space-4);
+      margin: var(--space-2) 0;
+    }
+
+    .tool-card li {
+      margin-bottom: var(--space-2);
+    }
+
+    .ok-list li::marker {
+      color: var(--color-success);
+    }
+
+    .no-list li::marker {
+      color: var(--color-secondary);
+    }
+
+    /* Decision tree */
+    .decision-tree {
+      background: var(--color-vit);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .decision-step {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--space-3);
+      align-items: center;
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-bg-subtle);
+      margin-bottom: var(--space-3);
+      border-left: var(--space-2) solid var(--color-primary);
+    }
+
+    .decision-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .decision-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--space-6);
+      height: var(--space-6);
+      border-radius: 999px;
+      background: var(--color-primary);
+      color: var(--color-vit);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .decision-q {
+      font-weight: 600;
+    }
+
+    .decision-answer {
+      font-family: var(--font-ui);
+      font-size: var(--fs-sm);
+      font-weight: 700;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+
+    .decision-answer--onedrive {
+      background: var(--color-success);
+      color: var(--color-vit);
+    }
+
+    .decision-answer--teams {
+      background: var(--color-primary);
+      color: var(--color-vit);
+    }
+
+    .decision-answer--sharepoint {
+      background: var(--color-secondary);
+      color: var(--color-vit);
+    }
+
+    /* Comparison table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--color-vit);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+      text-align: left;
+      vertical-align: top;
+      font-size: var(--fs-sm);
+    }
+
+    .compare-table thead {
+      background: var(--color-primary);
+      color: var(--color-vit);
+    }
+
+    .compare-table thead th {
+      font-family: var(--font-heading);
+    }
+
+    .compare-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .compare-table tbody th {
+      background: var(--color-bg-subtle);
+      font-weight: 700;
+      width: 22%;
+    }
+
+    /* Notes */
+    .legal-note {
+      background: var(--color-vitsippa, #F2F2F0);
+      border-left: var(--space-2) solid var(--color-success);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5);
+      margin-top: var(--space-4);
+    }
+
+    .warning-note {
+      background: var(--color-bg-subtle);
+      border-left: var(--space-2) solid var(--color-warning);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5);
+      margin-top: var(--space-4);
+    }
+
+    .danger-note {
+      background: var(--color-bg-subtle);
+      border-left: var(--space-2) solid var(--color-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5);
+      margin-top: var(--space-4);
+    }
+
+    .legal-note h4,
+    .warning-note h4,
+    .danger-note h4 {
+      margin: 0 0 var(--space-2);
+      color: var(--color-primary);
+    }
+
+    /* Copilot box */
+    .copilot-box {
+      background: var(--color-vit);
+      border: 1px solid var(--color-border);
+      border-left: var(--space-2) solid var(--color-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Mistakes list */
+    .mistake-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mistake-list li {
+      background: var(--color-vit);
+      border: 1px solid var(--color-border);
+      border-left: var(--space-2) solid var(--color-secondary);
+      border-radius: var(--radius-md);
+      padding: var(--space-4) var(--space-5);
+      margin-bottom: var(--space-3);
+    }
+
+    .mistake-list strong {
+      color: var(--color-secondary);
+      display: block;
+      margin-bottom: var(--space-2);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      font-size: var(--fs-sm);
+    }
+
+    /* Cheat sheet */
+    .cheat-sheet {
+      background: var(--color-primary);
+      color: var(--color-vit);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+      box-shadow: var(--shadow-md);
+    }
+
+    .cheat-sheet h2,
+    .cheat-sheet h3 {
+      color: var(--color-vit);
+    }
+
+    .cheat-sheet table {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--color-vit);
+      font-size: var(--fs-sm);
+    }
+
+    .cheat-sheet th,
+    .cheat-sheet td {
+      padding: var(--space-3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .cheat-sheet thead th {
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-wide);
+      border-bottom: 2px solid var(--color-secondary);
+    }
+
+    .footer-links {
+      margin-top: var(--space-7);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      font-family: var(--font-ui);
+      font-size: var(--fs-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (min-width: 768px) {
+      .grid--3 {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .grid--2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: var(--color-vit);
+      }
+
+      .toolbar,
+      .no-print {
+        display: none !important;
+      }
+
+      .panel,
+      .tool-card,
+      .decision-tree,
+      .compare-table,
+      .copilot-box,
+      .cheat-sheet {
+        box-shadow: none;
+      }
+
+      .cheat-sheet {
+        background: var(--color-vit);
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+      }
+
+      .cheat-sheet h2,
+      .cheat-sheet h3,
+      .cheat-sheet table,
+      .cheat-sheet th,
+      .cheat-sheet td {
+        color: var(--color-text);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="container hbg-stripe">
+      <span class="badge">Praktisk vägledning · M365 · Lagring och samarbete</span>
+      <h1>När använder vi vad?</h1>
+      <p class="lede">
+        En tydlig instruktion för vilket Microsoft 365-verktyg som ska användas till vad i
+        kommunalt arbete: <strong>OneDrive</strong> för det egna, <strong>Teams</strong> för
+        det dagliga samarbetet i grupp, och <strong>SharePoint</strong> för officiella
+        dokument och avdelningens gemensamma arbetsytor. Dokumentet ger snabbregler,
+        beslutsträd, jämförelsetabell, vanliga misstag och hur det här hänger ihop med
+        Copilot.
+      </p>
+      <div class="meta-row">
+        <span class="badge">OneDrive</span>
+        <span class="badge">Microsoft Teams</span>
+        <span class="badge">SharePoint</span>
+        <span class="badge">Informationsklassning</span>
+        <span class="badge">Copilot-perspektiv</span>
+        <span class="badge">Verifierat mot Microsoft-dokumentation</span>
+        <span class="badge">Version 1.1 — 2026-05-06</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toolbar no-print">
+    <div class="container">
+      <a href="#snabbregler">Snabbregler</a>
+      <a href="#beslutstrad">Beslutsträd</a>
+      <a href="#onedrive">OneDrive</a>
+      <a href="#teams">Teams</a>
+      <a href="#sharepoint">SharePoint</a>
+      <a href="#jamfor">Jämförelse</a>
+      <a href="#sekretess">Sekretess</a>
+      <a href="#copilot">Copilot-perspektiv</a>
+      <a href="#misstag">Vanliga misstag</a>
+      <a href="#cheat">Snabbreferens</a>
+      <a href="#kallor">Källor</a>
+      <span class="spacer"></span>
+      <button class="btn btn--ghost btn--sm" onclick="window.print()">Skriv ut / spara PDF</button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- ============================================================ -->
+      <section id="snabbregler">
+        <span class="kicker">Snabbregler — börja här</span>
+        <h2>Tre principer som löser 90 % av fallen</h2>
+        <p class="section-intro">
+          Innan du sparar eller delar något: ställ dig dessa tre frågor. Svaret avgör
+          alltid vilket verktyg som ska användas.
+        </p>
+
+        <div class="grid grid--3" style="margin-top: var(--space-5);">
+          <article class="tool-card tool-card--onedrive">
+            <span class="tag">Princip 1</span>
+            <h3>Är det bara mitt?</h3>
+            <p>
+              Utkast, anteckningar, personliga arbetsfiler, mallar du själv pillar på,
+              halvfärdiga tankar — det hör hemma i <strong>OneDrive</strong>.
+            </p>
+            <p style="font-size: var(--fs-sm); color: var(--color-text-muted);">
+              Om svaret är "ja, just nu — ingen annan behöver det" → OneDrive.
+            </p>
+          </article>
+
+          <article class="tool-card tool-card--teams">
+            <span class="tag">Princip 2</span>
+            <h3>Är det till mitt team eller projekt?</h3>
+            <p>
+              Filer som tillhör en grupp människor som jobbar tillsammans i en pågående
+              process — möten, projektplan, utkast under arbete, gemensam kalkyl —
+              hör hemma i <strong>Teams</strong> (i en kanal).
+            </p>
+            <p style="font-size: var(--fs-sm); color: var(--color-text-muted);">
+              Bonus: filer i Teams-kanaler lagras automatiskt i SharePoint i bakgrunden.
+            </p>
+          </article>
+
+          <article class="tool-card tool-card--sharepoint">
+            <span class="tag">Princip 3</span>
+            <h3>Är det officiell information för avdelningen?</h3>
+            <p>
+              Beslut, riktlinjer, mallar, fastställda dokument, intranät, avdelningens
+              gemensamma arkiv, sådant som ska finnas kvar oavsett vem som jobbar
+              här imorgon — hör hemma i <strong>SharePoint</strong>.
+            </p>
+            <p style="font-size: var(--fs-sm); color: var(--color-text-muted);">
+              Tänk: "skulle vi behöva detta även om jag slutar?" → SharePoint.
+            </p>
+          </article>
+        </div>
+
+        <div class="legal-note">
+          <h4>Grundregeln i en mening</h4>
+          <p style="margin: 0;">
+            <strong>OneDrive = mitt</strong>.
+            <strong>Teams = vårt (just nu)</strong>.
+            <strong>SharePoint = vårt (på riktigt, för alltid)</strong>.
+          </p>
+        </div>
+
+        <div class="panel" style="margin-top: var(--space-4); border-left: var(--space-2) solid var(--color-primary);">
+          <h4 style="margin-top: 0; color: var(--color-primary);">Microsofts officiella formulering</h4>
+          <p style="font-style: italic; margin-bottom: var(--space-3);">
+            "If you're working on a file by yourself, save it to OneDrive. Your OneDrive
+            files are private unless you share them with others ... If you're already
+            working as a team — in Microsoft Teams, SharePoint, or Outlook — you should
+            save your files where your team works."
+          </p>
+          <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin: 0;">
+            — Microsoft Support, <em>Should I save files to OneDrive or SharePoint?</em>
+            (verifierat 2026-05-06). Hela vår vägledning bygger på denna grundregel
+            kombinerad med kommunens informationsklassning och DPIA-krav.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="beslutstrad">
+        <span class="kicker">Beslutsträd</span>
+        <h2>Steg för steg: var ska den här filen ligga?</h2>
+        <p class="section-intro">
+          Gå igenom frågorna i ordning. Stanna vid första svaret som passar — det är
+          rätt plats.
+        </p>
+
+        <div class="decision-tree">
+          <div class="decision-step">
+            <span class="decision-num">1</span>
+            <span class="decision-q">Är filen bara till mig själv (utkast, anteckning, personligt)?</span>
+            <span class="decision-answer decision-answer--onedrive">OneDrive</span>
+          </div>
+          <div class="decision-step">
+            <span class="decision-num">2</span>
+            <span class="decision-q">Hör filen till ett pågående projekt eller team där flera ska samarbeta i realtid?</span>
+            <span class="decision-answer decision-answer--teams">Teams-kanal</span>
+          </div>
+          <div class="decision-step">
+            <span class="decision-num">3</span>
+            <span class="decision-q">Är det ett fastställt dokument, en mall, en riktlinje eller en allmän handling som ska finnas kvar?</span>
+            <span class="decision-answer decision-answer--sharepoint">SharePoint</span>
+          </div>
+          <div class="decision-step">
+            <span class="decision-num">4</span>
+            <span class="decision-q">Är det avdelningens eller förvaltningens officiella information (intranät, processbeskrivningar, beslut)?</span>
+            <span class="decision-answer decision-answer--sharepoint">SharePoint</span>
+          </div>
+          <div class="decision-step">
+            <span class="decision-num">5</span>
+            <span class="decision-q">Är det något du snabbt skickar till en kollega i chatt och som inte behöver bevaras?</span>
+            <span class="decision-answer decision-answer--teams">Teams-chatt</span>
+          </div>
+          <div class="decision-step">
+            <span class="decision-num">6</span>
+            <span class="decision-q">Är det ett mötestranskript eller mötesinspelning?</span>
+            <span class="decision-answer decision-answer--teams">Teams (Recap)</span>
+          </div>
+        </div>
+
+        <div class="warning-note">
+          <h4>Tumregel om du tvekar mellan Teams och SharePoint</h4>
+          <p style="margin: 0;">
+            Filer som ligger i en <strong>Teams-kanal</strong> lagras tekniskt i SharePoint —
+            varje team har en kopplad SharePoint-sajt automatiskt. Skillnaden är ingången:
+            <em>Teams</em> är gränssnittet för det dagliga samarbetet,
+            <em>SharePoint</em> är gränssnittet för dokumentstrukturen och officiella ytor.
+            Välj Teams när det är knutet till en pågående konversation. Välj SharePoint när
+            det är förvaltningens fastställda yta.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="onedrive">
+        <span class="kicker">OneDrive — det privata</span>
+        <h2>OneDrive for Business</h2>
+        <p class="section-intro">
+          OneDrive är din personliga molnyta — i praktiken din "egen mapp" i molnet.
+          Innehållet är som default <strong>endast synligt för dig</strong>. Du kan dela
+          enskilda filer eller mappar med namngivna personer, men det är inte plattformen
+          för gemensam, varaktig dokumenthantering.
+        </p>
+
+        <div class="grid grid--2" style="margin-top: var(--space-5);">
+          <div class="panel">
+            <h3 style="margin-top: 0;">Använd OneDrive till</h3>
+            <ul class="ok-list">
+              <li>Personliga utkast och anteckningar</li>
+              <li>Filer som ännu inte är klara att delas</li>
+              <li>Kopior av dokument du själv arbetar med</li>
+              <li>Backup av Skrivbord och Dokument (om kommunen aktiverat OneDrive Known Folder Move)</li>
+              <li>Tillfällig delning av <em>en</em> fil med <em>en</em> namngiven kollega via länk</li>
+              <li>Bilder, screenshots och referensmaterial du själv samlar in</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin-top: 0;">Använd <em>inte</em> OneDrive till</h3>
+            <ul class="no-list">
+              <li>Gemensamma teamdokument som flera ska arbeta i</li>
+              <li>Avdelningens fastställda mallar eller riktlinjer</li>
+              <li>Allmänna handlingar som ska diarieföras (dessa hör hemma i diariesystemet)</li>
+              <li>Beslut, protokoll eller annat som ska bevaras enligt arkivreglerna</li>
+              <li>Dokument som måste vara tillgängliga om du är borta eller slutar</li>
+              <li>Sekretessbelagd information utan att kommunens informationsklassning är följd</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="danger-note">
+          <h4>Viktigt om kontinuitet</h4>
+          <p style="margin: 0;">
+            När en medarbetare slutar töms eller arkiveras OneDrive-kontot enligt kommunens
+            policy. Filer som hela teamet behöver får <strong>inte</strong> bara ligga på en
+            persons OneDrive — de ska flyttas till Teams eller SharePoint i god tid.
+            Att dela ut OneDrive-länkar internt som "den enda kopian" är ett vanligt och
+            allvarligt misstag.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="teams">
+        <span class="kicker">Teams — det gemensamma vardagsrummet</span>
+        <h2>Microsoft Teams</h2>
+        <p class="section-intro">
+          Teams är plattformen för samarbete i realtid — chatt, möten, samtal och
+          gemensamma kanaler kring ett ämne, projekt eller team. Filer du delar i en
+          Teams-<strong>kanal</strong> lagras tekniskt i en SharePoint-sajt som
+          automatiskt skapas när teamet skapas. Filer du delar i en <strong>chatt</strong>
+          (1:1 eller gruppchatt) lagras däremot i din egen OneDrive och delas till
+          mottagarna via länk.
+        </p>
+
+        <div class="grid grid--2" style="margin-top: var(--space-5);">
+          <div class="panel">
+            <h3 style="margin-top: 0;">Använd Teams till</h3>
+            <ul class="ok-list">
+              <li>Pågående projektsamarbete med flera personer</li>
+              <li>Gemensamma filer i en kanal (en kanal = ett ämne/område)</li>
+              <li>Möten, samtal och inspelningar/transkript</li>
+              <li>Snabba frågor och avstämningar i chatt</li>
+              <li>Gemensam OneNote, planer (Planner) och uppgifter knutna till teamet</li>
+              <li>Levande arbetsdokument där flera redigerar parallellt</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin-top: 0;">Tänk på i Teams</h3>
+            <ul>
+              <li><strong>Kanalfiler ≠ chattfiler.</strong> Lägg viktiga gemensamma filer i kanalens Filer-flik, inte som bilaga i chatt.</li>
+              <li><strong>Privata kanaler</strong> har en egen SharePoint-sajt med begränsad åtkomst — använd när delar av teamet behöver avskildhet.</li>
+              <li><strong>Gästanvändare</strong> får åtkomst enligt kommunens externa delningspolicy — kontrollera klassningen först.</li>
+              <li><strong>Möten i kanal</strong> spelas in/transkriberas till SharePoint (kanalens sajt). 1:1- och ad-hoc-möten landar i mötesarrangörens OneDrive.</li>
+              <li><strong>Chatten är inte arkiv.</strong> Viktig dokumentation måste flyttas till kanalens Filer-flik eller SharePoint.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="warning-note">
+          <h4>Var hamnar Teams-filer egentligen?</h4>
+          <table class="compare-table" style="margin-top: var(--space-3);">
+            <thead>
+              <tr>
+                <th>Plats i Teams</th>
+                <th>Lagras tekniskt i</th>
+                <th>Vem ser filen som default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Filer i en standardkanal</td>
+                <td>Teamets SharePoint-sajt → mappen för kanalen</td>
+                <td>Alla teammedlemmar</td>
+              </tr>
+              <tr>
+                <td>Filer i en privat kanal</td>
+                <td>En separat SharePoint-sajt för den privata kanalen</td>
+                <td>Endast medlemmar i den privata kanalen</td>
+              </tr>
+              <tr>
+                <td>Filer i 1:1-chatt</td>
+                <td>Avsändarens OneDrive → mappen "Microsoft Teams Chat Files"</td>
+                <td>Avsändaren + mottagaren via delningslänk</td>
+              </tr>
+              <tr>
+                <td>Filer i gruppchatt</td>
+                <td>Avsändarens OneDrive</td>
+                <td>Alla i gruppchatten via delningslänk</td>
+              </tr>
+              <tr>
+                <td>Mötesinspelning från kanalmöte</td>
+                <td>Kanalens mapp i SharePoint</td>
+                <td>Teammedlemmar</td>
+              </tr>
+              <tr>
+                <td>Mötesinspelning från ad-hoc-möte</td>
+                <td>Mötesarrangörens OneDrive (mappen Recordings)</td>
+                <td>Mötets deltagare via länk</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="sharepoint">
+        <span class="kicker">SharePoint — det officiella</span>
+        <h2>SharePoint Online</h2>
+        <p class="section-intro">
+          SharePoint är förvaltningens dokumentmotor och intranätsplattform. Det är hit
+          fastställda dokument, mallar, riktlinjer och allmänna handlingar hör. SharePoint
+          är dessutom den tekniska grunden under Teams — varje team har en SharePoint-sajt
+          i bakgrunden — men SharePoint som <em>egen ingång</em> används främst för
+          strukturerat innehåll som ska finnas kvar oavsett enskilda medarbetare.
+        </p>
+
+        <div class="grid grid--2" style="margin-top: var(--space-5);">
+          <div class="panel">
+            <h3 style="margin-top: 0;">Använd SharePoint till</h3>
+            <ul class="ok-list">
+              <li>Avdelningens eller förvaltningens officiella dokumentbibliotek</li>
+              <li>Riktlinjer, rutiner, processbeskrivningar och fastställda mallar</li>
+              <li>Allmänna handlingar och dokument som omfattas av arkivreglerna</li>
+              <li>Intranätsidor, nyheter och information till hela organisationen</li>
+              <li>Strukturerade ytor med metadata, versionshantering och retention</li>
+              <li>Dokument där behörighet och spårbarhet måste kunna styrkas</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin-top: 0;">Styrkor i SharePoint</h3>
+            <ul>
+              <li><strong>Versionshistorik</strong> — varje ändring spåras automatiskt.</li>
+              <li><strong>Behörighetsstyrning</strong> — bibliotek, mappar och enskilda filer kan styras separat.</li>
+              <li><strong>Retention och records management</strong> — anpassningsbart till arkivlagen och kommunens dokumenthanteringsplan.</li>
+              <li><strong>Sökning och metadata</strong> — strukturerat innehåll går att hitta över hela organisationen.</li>
+              <li><strong>Beständighet</strong> — innehållet är inte knutet till en enskild medarbetares konto.</li>
+              <li><strong>Copilot-grund</strong> — Copilot kan grunda sina svar i SharePoint-innehåll baserat på den enskildes behörighet.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="legal-note">
+          <h4>Vem skapar SharePoint-sajter?</h4>
+          <p style="margin: 0;">
+            Skapande av nya SharePoint-sajter, team och kanaler ska följa kommunens
+            governance-modell. Skapa <strong>inte</strong> egna sajter på eget initiativ
+            för officiella ändamål — kontakta digitaliseringsavdelningen eller följ
+            anvisningarna på kommunens intranät. Detta motverkar fragmentering och
+            säkerställer att rätt klassning, retention och behörigheter används.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="jamfor">
+        <span class="kicker">Jämförelse</span>
+        <h2>OneDrive vs Teams vs SharePoint</h2>
+        <p class="section-intro">
+          Snabb sida-vid-sida-överblick av när varje verktyg passar bäst.
+        </p>
+
+        <table class="compare-table" style="margin-top: var(--space-5);">
+          <thead>
+            <tr>
+              <th>Aspekt</th>
+              <th>OneDrive</th>
+              <th>Teams</th>
+              <th>SharePoint</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Primär användning</th>
+              <td>Personliga filer</td>
+              <td>Samarbete i grupp/projekt</td>
+              <td>Officiellt innehåll och dokumentbibliotek</td>
+            </tr>
+            <tr>
+              <th>Default-synlighet</th>
+              <td>Endast jag</td>
+              <td>Teamets medlemmar (i en kanal)</td>
+              <td>Sajtens behöriga (kan vara hela kommunen eller en avdelning)</td>
+            </tr>
+            <tr>
+              <th>Behörigheter</th>
+              <td>Jag delar enskilt med personer</td>
+              <td>Styrs av team-/kanal-medlemskap</td>
+              <td>Granulärt: sajt, bibliotek, mapp, fil</td>
+            </tr>
+            <tr>
+              <th>Versionshantering</th>
+              <td>Ja</td>
+              <td>Ja (via SharePoint i bakgrunden)</td>
+              <td>Ja, fullt utbyggd</td>
+            </tr>
+            <tr>
+              <th>Retention / arkivering</th>
+              <td>Personlig livscykel — töms när medarbetare slutar</td>
+              <td>Följer det kopplade SharePoint-bibliotekets policy</td>
+              <td>Konfigureras enligt dokumenthanteringsplan</td>
+            </tr>
+            <tr>
+              <th>Allmän handling</th>
+              <td>Olämpligt — saknar arkivstöd</td>
+              <td>Möjligt om det är en kanalfil med rätt policy</td>
+              <td>Rätt plats — stöder records management</td>
+            </tr>
+            <tr>
+              <th>Söks av Copilot</th>
+              <td>Ja — bara dina egna filer (default)</td>
+              <td>Ja — om du är medlem i teamet eller chatten</td>
+              <td>Ja — om du har behörighet till sajten/biblioteket</td>
+            </tr>
+            <tr>
+              <th>Riskscenario vid frånvaro</th>
+              <td>Filerna blir otillgängliga om personen är borta/slutar</td>
+              <td>Övriga teammedlemmar har fortsatt åtkomst</td>
+              <td>Innehåll består oberoende av enskilda</td>
+            </tr>
+            <tr>
+              <th>Lämplig för sekretess­belagd info</th>
+              <td>Endast om delning sker selektivt och klassning är gjord</td>
+              <td>Privata kanaler — om klassning och behörighet matchar</td>
+              <td>Bästa stöd — granulär behörighet + retention</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="sekretess">
+        <span class="kicker">Sekretess och informationsklassning</span>
+        <h2>Var lägger jag känslig information?</h2>
+        <p class="section-intro">
+          Innan du sparar information som kan vara sekretessbelagd eller innehålla
+          personuppgifter ska kommunens informationsklassningsmodell följas. Klassningen
+          styr <em>var</em> filen får ligga och <em>vem</em> som får se den — inte
+          tvärtom.
+        </p>
+
+        <table class="compare-table" style="margin-top: var(--space-5);">
+          <thead>
+            <tr>
+              <th>Innehållstyp</th>
+              <th>OneDrive</th>
+              <th>Teams</th>
+              <th>SharePoint</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Öppen, allmän information</th>
+              <td>OK</td>
+              <td>OK</td>
+              <td>OK (rekommenderas för officiella dokument)</td>
+            </tr>
+            <tr>
+              <th>Internt arbetsmaterial (ej allmän handling)</th>
+              <td>OK för utkast</td>
+              <td>OK i lämpligt team</td>
+              <td>OK</td>
+            </tr>
+            <tr>
+              <th>Personuppgifter (vanliga)</th>
+              <td>Endast tillfälligt och med klassning</td>
+              <td>OK i team som är dimensionerat för det</td>
+              <td>Rekommenderas — granulär behörighet</td>
+            </tr>
+            <tr>
+              <th>Sekretessbelagda eller känsliga personuppgifter</th>
+              <td>Undvik</td>
+              <td>Endast i privata kanaler där klassning matchar</td>
+              <td>Rätt plats — med korrekt behörighetsstyrning och retention</td>
+            </tr>
+            <tr>
+              <th>Allmän handling som ska diarieföras</th>
+              <td>Nej</td>
+              <td>Nej</td>
+              <td>Nej — ska till diarie-/ärendehanteringssystemet</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="legal-note">
+          <h4>Allmänna handlingar och känsliga uppgifter hör inte hemma i M365-lagringen</h4>
+          <p style="margin: 0 0 var(--space-3) 0;">
+            Handlingar som ska diarieföras — till exempel beslutsunderlag, inkomna
+            ärenden, avtal, myndighetsbeslut och annan dokumentation som omfattas av
+            registreringsskyldigheten — ska läggas i kommunens
+            <strong>diarie- och ärendehanteringssystem</strong>, inte i OneDrive, Teams
+            eller SharePoint. Detsamma gäller sekretessbelagd information och känsliga
+            personuppgifter som kräver särskild hantering enligt kommunens
+            informationsklassning.
+          </p>
+          <p style="margin: 0;">
+            Att en handling <em>ändå</em> hamnar i Teams-chatt, OneDrive eller SharePoint
+            påverkar inte om den är en allmän handling i offentlighets- och sekretesslagens
+            mening — det är innehållet och funktionen som avgör. Men M365-lagringen saknar
+            det diarieförings-, arkiverings- och gallringsstöd som krävs.
+            <strong>Upptäcker du att en allmän handling ligger fel — flytta den
+            till rätt system och notera detta enligt kommunens rutin.</strong>
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="copilot">
+        <span class="kicker">Copilot-perspektiv</span>
+        <h2>Hur påverkar valet av lagringsplats Copilot?</h2>
+        <p class="section-intro">
+          Microsoft 365 Copilot använder enbart innehåll som den enskilde användaren
+          redan har behörighet till — Copilot ger ingen ny åtkomst och kringgår inga
+          rättigheter. Var du sparar dina filer påverkar därför vem Copilot kan hjälpa
+          med dem.
+        </p>
+
+        <div class="copilot-box" style="margin-top: var(--space-5);">
+          <h3 style="margin-top: 0;">Tre praktiska konsekvenser</h3>
+          <ul>
+            <li>
+              <strong>OneDrive-filer</strong> är som default bara synliga för dig.
+              Copilot kan därför bara använda dem när <em>du själv</em> arbetar med
+              Copilot. Andra i din avdelning får ingen hjälp av Copilot med innehåll
+              som ligger i din OneDrive.
+            </li>
+            <li>
+              <strong>Teams- och SharePoint-filer</strong> är synliga för dem som har
+              åtkomst till sajten/teamet. Copilot kan därför hjälpa <em>alla
+              behöriga</em> kollegor att sammanfatta, söka i och utgå från innehållet.
+            </li>
+            <li>
+              <strong>Vill du att hela teamet ska få nytta av ett dokument via
+              Copilot?</strong> Lägg det i Teams-kanalen eller SharePoint-biblioteket —
+              inte i din egen OneDrive.
+            </li>
+          </ul>
+        </div>
+
+        <div class="warning-note">
+          <h4>Behörigheter måste vara rätt innan filer flyttas till Copilot-grundande ytor</h4>
+          <p style="margin: 0;">
+            Innan ett dokument läggs i SharePoint eller en bred Teams-kanal — kontrollera
+            att behörigheterna stämmer. Copilot är inte källan till en eventuell
+            överdelning, men en felaktig behörighet kan göra att Copilot synliggör
+            innehåll för fler än det var tänkt. Detta är en del av kommunens DPIA och
+            varje pilots Go/No-Go-kriterier.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="misstag">
+        <span class="kicker">Vanliga misstag</span>
+        <h2>Sådant som ofta går snett — och hur det fixas</h2>
+
+        <ul class="mistake-list" style="margin-top: var(--space-5);">
+          <li>
+            <strong>Misstag 1 — Teamets enda kopia ligger på en persons OneDrive</strong>
+            Konsekvens: när personen är på semester eller slutar blir filen otillgänglig.
+            Fix: flytta filen till Teams-kanalens Filer-flik eller SharePoint, och
+            dela ut nya länkar därifrån.
+          </li>
+          <li>
+            <strong>Misstag 2 — Viktig information skickas som bilaga i e-post eller chatt</strong>
+            Konsekvens: olika personer arbetar i olika versioner, kommentarer tappas bort,
+            sökbarheten försvinner. Fix: spara filen i Teams/SharePoint och skicka en
+            <em>länk</em> i stället för bilaga.
+          </li>
+          <li>
+            <strong>Misstag 3 — Avdelningen skapar egna SharePoint-sajter på eget bevåg</strong>
+            Konsekvens: fragmentering, dubbletter, otydlig ägarskap, fel klassning.
+            Fix: kontakta digitaliseringsavdelningen för att få en sajt skapad enligt
+            kommunens governance-modell.
+          </li>
+          <li>
+            <strong>Misstag 4 — Sekretessbelagt material hamnar i en bred Teams-kanal eller offentlig SharePoint-sajt</strong>
+            Konsekvens: information görs tillgänglig för fler än vad klassningen tillåter.
+            Fix: kontrollera klassning först, använd privat kanal eller separat
+            SharePoint-bibliotek med rätt behörigheter, dokumentera behovsskälet.
+          </li>
+          <li>
+            <strong>Misstag 5 — Allmän handling sparas bara i Teams-chatt eller OneDrive</strong>
+            Konsekvens: handlingen blir svår att hitta vid begäran om utlämnande och
+            saknar diarieförings-, arkiverings- och gallringsstöd. Fix: allmänna
+            handlingar som ska diarieföras ska in i kommunens diarie-/ärendehanteringssystem
+            — inte stanna i chatten, OneDrive eller SharePoint.
+          </li>
+          <li>
+            <strong>Misstag 6 — Förvirring om "var hamnar mina Teams-filer?"</strong>
+            Konsekvens: anställda lägger officiella dokument i 1:1-chatt och tror att
+            de är gemensamma — men de ligger i avsändarens OneDrive. Fix: använd alltid
+            en Teams-<em>kanal</em> för gemensamma teamfiler, inte chatt.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="cheat">
+        <span class="kicker">Snabbreferens</span>
+        <h2>Snabb-cheat-sheet — skriv ut och sätt upp</h2>
+        <p class="section-intro">
+          En tabell att ha i bakhuvudet när du sparar något nytt.
+        </p>
+
+        <div class="cheat-sheet" style="margin-top: var(--space-5);">
+          <h3 style="margin-top: 0;">Vad jag gör med ...</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Det jag har</th>
+                <th>Lägg det i</th>
+                <th>Varför</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mitt eget utkast eller anteckning</td>
+                <td>OneDrive</td>
+                <td>Bara jag behöver det just nu</td>
+              </tr>
+              <tr>
+                <td>Pågående projektplan med min projektgrupp</td>
+                <td>Teams-kanal</td>
+                <td>Vi jobbar i den dagligen tillsammans</td>
+              </tr>
+              <tr>
+                <td>Avdelningens mall eller fastställda riktlinje</td>
+                <td>SharePoint</td>
+                <td>Officiellt, ska finnas kvar, behöver styrning</td>
+              </tr>
+              <tr>
+                <td>Snabb skärmdump till en kollega</td>
+                <td>Teams-chatt (1:1)</td>
+                <td>Tillfälligt, ingen dokumentationsskyldighet</td>
+              </tr>
+              <tr>
+                <td>Mötesanteckning från avdelningsmöte</td>
+                <td>Teams-kanal eller SharePoint</td>
+                <td>Hela avdelningen behöver tillgång över tid</td>
+              </tr>
+              <tr>
+                <td>Beslutsunderlag som ska diarieföras</td>
+                <td>Diarie-/ärendehanteringssystem</td>
+                <td>Allmän handling — hör inte hemma i OneDrive, Teams eller SharePoint</td>
+              </tr>
+              <tr>
+                <td>Inspelat möte med transkribering</td>
+                <td>Teams (lagras automatiskt rätt)</td>
+                <td>Kanalmöte → SharePoint, ad-hoc → mötesarrangörens OneDrive</td>
+              </tr>
+              <tr>
+                <td>Dokument med personuppgifter</td>
+                <td>SharePoint (med rätt klassning och behörighet)</td>
+                <td>Bästa stöd för granulär behörighet och retention</td>
+              </tr>
+              <tr>
+                <td>Skiss eller idé jag inte vill dela ännu</td>
+                <td>OneDrive</td>
+                <td>Privat tills den är redo att flyttas</td>
+              </tr>
+              <tr>
+                <td>Information som hela kommunen behöver</td>
+                <td>Intranät / SharePoint</td>
+                <td>Bred publicering, kommunens publika ytor</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <section id="kallor">
+        <span class="kicker">Källor</span>
+        <h2>Microsoft-dokumentation som vägledningen vilar på</h2>
+        <p class="section-intro">
+          Den här instruktionen är verifierad mot Microsofts officiella dokumentation
+          per 2026-05-06. Nedan listas de primära källorna med direktcitat på de punkter
+          där vi tagit ställning.
+        </p>
+
+        <div class="panel" style="margin-top: var(--space-5);">
+          <h3 style="margin-top: 0;">1. Should I save files to OneDrive or SharePoint?</h3>
+          <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--space-3);">
+            Microsoft Support — generell vägledning för slutanvändare.
+          </p>
+          <p style="font-style: italic;">
+            "If you're working on a file by yourself, save it to OneDrive. ...
+            If you're already working as a team — in Microsoft Teams, SharePoint, or
+            Outlook — you should save your files where your team works."
+          </p>
+          <p style="font-style: italic;">
+            "Behind the scenes, SharePoint in Microsoft 365 provides the content services
+            for all files in Microsoft 365, including files you work with in Teams,
+            Yammer, and Outlook."
+          </p>
+          <p style="font-size: var(--fs-sm); margin-bottom: 0;">
+            <a href="https://support.microsoft.com/en-us/office/should-i-save-files-to-onedrive-or-sharepoint-d18d21a0-1f9f-4f6c-ac45-d52afa0a4a2e" target="_blank" rel="noopener">
+              support.microsoft.com — Should I save files to OneDrive or SharePoint?
+            </a>
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top: 0;">2. Should I store my files in Microsoft Teams or in SharePoint?</h3>
+          <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--space-3);">
+            Microsoft Learn (Microsoft 365 community) — teknisk genomgång av relationen
+            Teams ↔ SharePoint.
+          </p>
+          <p style="font-style: italic;">
+            "Each time you share files in a Team, they are stored in the associated site
+            in SharePoint! Not in Microsoft Teams."
+          </p>
+          <p style="font-style: italic;">
+            "Files shared in private chats are stored in the sender's OneDrive for
+            Business."
+          </p>
+          <p style="font-style: italic;">
+            "Private channels and Shared channels have a different architecture which
+            consists in having a separate site with different permissions from the Team."
+          </p>
+          <p style="font-style: italic;">
+            "Conclusion: There is literally no difference between storing your files in
+            Microsoft Teams or in SharePoint. They are, in reality, just two views of
+            the same file store."
+          </p>
+          <p style="font-size: var(--fs-sm); margin-bottom: 0;">
+            <a href="https://learn.microsoft.com/en-us/microsoft-365/community/should-i-store-my-files-in-teams-or-sharepoint-an-understanding-of-behind-the-scenes" target="_blank" rel="noopener">
+              learn.microsoft.com — Should I store my files in Microsoft Teams or in SharePoint?
+            </a>
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top: 0;">3. Introduction to SharePoint and OneDrive in Microsoft 365 for administrators</h3>
+          <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--space-3);">
+            Microsoft Learn — administratörsperspektivet, governance, retention, sync,
+            sensitivity labels.
+          </p>
+          <p style="font-style: italic;">
+            "SharePoint is deeply integrated into Teams. Files that are stored in Teams
+            are stored in SharePoint sites."
+          </p>
+          <p style="font-size: var(--fs-sm); margin-bottom: 0;">
+            <a href="https://learn.microsoft.com/en-us/sharepoint/introduction" target="_blank" rel="noopener">
+              learn.microsoft.com — Introduction to SharePoint and OneDrive
+            </a>
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top: 0;">4. Configure a secure and governed foundation for Microsoft 365 Copilot</h3>
+          <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--space-3);">
+            Microsoft Learn — Copilots tillgång till data styrs alltid av användarens
+            befintliga behörigheter.
+          </p>
+          <p style="font-style: italic;">
+            "Copilot works entirely within the security boundaries of your organization,
+            Microsoft Entra ID permissions, OneDrive/SharePoint access controls, and
+            Microsoft Purview policies. When you ask a question, Copilot simply uses
+            the same rights you have to search for relevant information."
+          </p>
+          <p style="font-size: var(--fs-sm); margin-bottom: 0;">
+            <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/configure-secure-governed-data-foundation-microsoft-365-copilot" target="_blank" rel="noopener">
+              learn.microsoft.com — Configure a secure and governed foundation for Microsoft 365 Copilot
+            </a>
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top: 0;">5. Övriga relevanta Microsoft-resurser</h3>
+          <ul>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/sharepoint/redirect-known-folders" target="_blank" rel="noopener">
+                Redirect and move Windows known folders to OneDrive
+              </a>
+              — bakgrund för "Backup av Skrivbord och Dokument" via Known Folder Move.
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/sharepoint/get-ready-copilot-sharepoint-advanced-management" target="_blank" rel="noopener">
+                Get ready for Microsoft 365 Copilot with SharePoint Advanced Management
+              </a>
+              — oversharing-kontroller och data access governance inför Copilot.
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/microsoftteams/shared-channels" target="_blank" rel="noopener">
+                Shared Channels in Microsoft Teams
+              </a>
+              — arkitektur för delade och privata kanaler.
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/microsoftteams/tmr-meeting-recording-take-out" target="_blank" rel="noopener">
+                Use OneDrive for Business and SharePoint for meeting recordings
+              </a>
+              — var inspelningar och transkript hamnar (kanal vs ad-hoc).
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/sharepoint/plan-for-sharepoint-onedrive" target="_blank" rel="noopener">
+                Plan for SharePoint and OneDrive in Microsoft 365
+              </a>
+              — planeringsguide för utrullning, retention och migrering.
+            </li>
+          </ul>
+        </div>
+
+        <div class="legal-note">
+          <h4>Avgränsning</h4>
+          <p style="margin: 0;">
+            Microsofts dokumentation är generell och teknisk. Den ersätter inte
+            Helsingborgs stads informationsklassningsmodell, dokumenthanteringsplan,
+            DPIA eller arkivredovisning. Vid motstridighet gäller kommunens egna
+            beslut och styrande dokument före denna vägledning.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <div class="footer-links no-print">
+        Relaterade dokument:
+        <a href="pilot-roadmap-5-steg-CISO.html">5-stegs-roadmap</a> ·
+        <a href="teams-transkribering-i-detalj.html">Teams-transkribering i detalj</a> ·
+        <a href="prompt-flode-copilot.html">Promptflöde Copilot</a> ·
+        <a href="utbildning/pilot-anvandare.html">Pilotutbildning</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
